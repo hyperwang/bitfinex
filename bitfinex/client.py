@@ -385,6 +385,9 @@ class Client:
     See https://www.bitfinex.com/pages/api for API documentation.
     """
 
+    def __init__(self, proxies=None):
+        self.proxies = proxies
+
     def server(self):
         return u"{0:s}://{1:s}/{2:s}".format(PROTOCOL, HOST, VERSION)
 
