@@ -30,11 +30,11 @@ class TradeClient:
     Authenticated client for trading through Bitfinex API
     """
 
-    def __init__(self, key, secret):
+    def __init__(self, key, secret, proxies=None):
         self.URL = "{0:s}://{1:s}/{2:s}".format(PROTOCOL, HOST, VERSION)
         self.KEY = key
         self.SECRET = secret
-        pass
+        self.proxies = proxies
 
     @property
     def _nonce(self):
@@ -80,7 +80,7 @@ class TradeClient:
 
         }
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/order/new", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/order/new", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         try:
@@ -103,7 +103,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/order/cancel", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/order/cancel", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         try:
@@ -126,7 +126,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/order/cancel/all", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/order/cancel/all", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
         return json_resp
 
@@ -143,7 +143,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/order/status", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/order/status", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         try:
@@ -165,7 +165,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/orders", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/orders", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -181,7 +181,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/positions", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/positions", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
         return json_resp
 
@@ -198,7 +198,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/position/claim", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/position/claim", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -218,7 +218,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/mytrades", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/mytrades", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -244,7 +244,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/offer/new", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/offer/new", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -262,7 +262,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/offer/cancel", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/offer/cancel", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -280,7 +280,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/offer/status", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/offer/status", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -296,7 +296,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/offers", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/offers", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -313,7 +313,7 @@ class TradeClient:
         }
 
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/balances", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/balances", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -331,7 +331,7 @@ class TradeClient:
             'walletto': walletto
             }
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/transfer", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/transfer", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -355,7 +355,7 @@ class TradeClient:
             "wallet": wallet
         }
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/history", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/history", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -371,7 +371,7 @@ class TradeClient:
             "limit": limit,
         }
         signed_payload = self._sign_payload(payload)
-        r = requests.post(self.URL + "/orders/hist", headers=signed_payload, verify=True)
+        r = requests.post(self.URL + "/orders/hist", headers=signed_payload, verify=True, proxies=self.proxies)
         json_resp = r.json()
 
         return json_resp
@@ -542,7 +542,7 @@ class Client:
 
 
     def _get(self, url):
-        return requests.get(url, timeout=TIMEOUT).json()
+        return requests.get(url, timeout=TIMEOUT, proxies=self.proxies).json()
 
 
     def _build_parameters(self, parameters):
